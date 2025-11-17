@@ -1,0 +1,76 @@
+import pygame as pg
+import sys
+import random
+from Player import player
+from pygame.locals import *
+from pygame.locals import QUIT
+
+FPS = 60
+WIN = 700
+
+pg.init()
+pg.font.init()
+scrn = pg.display.set_mode((WIN*1.5,WIN)) 
+pg.display.set_caption('Fall FRENZY!') 
+
+
+clock = pg.time.Clock()
+scrn_width = scrn.get_width()
+scrn_height = scrn.get_height()
+# fonts
+font = pg.font.SysFont('Arial', 35, bold=False)
+s_font = pg.font.SysFont('Arial', 20, bold=False)
+b_font = pg.font.SysFont('Arial', 40, bold=True)
+h_font = pg.font.SysFont('Arial', 70, bold=False)
+sh_font = pg.font.SysFont('Arial', 100, bold=False)
+
+
+def player_update(players,platform):
+    for player in players:
+        if (player.col == "red"):
+            player.move_1(scrn)
+        if (player.col == "blue"):
+            player.move_2(scrn)
+        player.attack(scrn,players)
+        player.draw(scrn,players,platform)
+
+
+def draw(game_state,platform,players):
+    #Back
+    scrn.fill("white")
+    pg.draw.rect(scrn,"black",platform)
+    #Front
+    player_update(players,platform)
+    pg.display.flip()
+
+
+def main():
+    #Setup
+    game_state = 0
+    #Players 
+    players = []
+    players.append(player(scrn,200,scrn_height/2 - 100,"red"))
+    players.append(player(scrn,scrn_width - 200,scrn_height/2 - 100,"blue"))
+    platform = pg.Rect(0,scrn_height-100,scrn_width,scrn_height)
+    while True: 
+        keys =pg.key.get_pressed()
+        mouse = pg.mouse.get_pos()
+
+
+        for evnt in pg.event.get():
+            if evnt.type == KEYDOWN:
+                if (evnt.key == K_r): 
+                    pass
+
+            #Close window
+            if evnt.type == QUIT:
+                pg.quit()
+                sys.exit()
+        if keys[pg.K_ESCAPE]:
+            pg.quit()
+            sys.exit()
+        clock.tick(FPS)
+        draw(game_state,platform,players)
+
+if __name__ == "__main__":
+    main()
