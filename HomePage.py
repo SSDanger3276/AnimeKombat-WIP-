@@ -1,6 +1,5 @@
 import pygame as pg
 
-
 # This is the HomePage class for the game. It will display the home page of the game and allow the user to start the game.
 pg.init()
 pg.font.init()
@@ -8,13 +7,7 @@ pg.font.init()
 SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
 #Yo if you can change this to to activate when main is on, that'd be great.
 Run = True
-
-#Images
-Home_Page_images = pg.image.load("Homepage pot1.png").convert()
-Home_Page_images.set_colorkey((0, 0, 0))
-
-
-
+    
 screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pg.display.set_caption('AniCombat')
 
@@ -33,7 +26,12 @@ def draw_home_page():
                         Font.render('Login', True, (255, 255, 255)))
         screen.blit(Sign_In_Button[1], (SCREEN_WIDTH//2 - 50, SCREEN_HEIGHT - 135))
         screen.blit(Login_Button[1], (SCREEN_WIDTH//2 - 30, SCREEN_HEIGHT - 285))
-
+        if pg.mouse.get_pressed()[0]:
+            mouse_pos = pg.mouse.get_pos()
+            if Sign_In_Button[0].collidepoint(mouse_pos):
+                Sign_Up()
+            elif Login_Button[0].collidepoint(mouse_pos):
+                Login_In()
 
         
 
@@ -48,9 +46,8 @@ def Home_Page():
     pass
 
 while Run:
-    draw_home_page()
-    screen.bilt()
 
+    draw_home_page()
     for event in pg.event.get():
         if event.type == pg.QUIT:
             Run = False
@@ -60,6 +57,9 @@ pg.quit()
         
 
 class HomePage:
-    def __init__(self, screen):
-        pass
+    def __init__(self, Username, Password, Email):
+        self.Username = Username
+        self.Password = Password
+        self.Email = Email
+    
         
