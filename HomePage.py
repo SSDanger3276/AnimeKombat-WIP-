@@ -10,22 +10,30 @@ SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
 Run = True
 
 #Images
+Home_Page_images = pg.image.load("Homepage pot1.png").convert()
+Home_Page_images.set_colorkey((0, 0, 0))
+
 
 
 screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pg.display.set_caption('AniCombat')
 
+
+CLOCK = pg.time.Clock()
+
 # The Aesthetics :D
 def draw_home_page():
-        Font = pg.font.SysFont('Times New Roman', 30)
-        pg.draw.rect(screen, (45, 43, 76), (0, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
-        Sign_In_Button = (pg.draw.rect(screen, (0, 0, 0), (SCREEN_WIDTH//2 - 150, SCREEN_HEIGHT - 150, 300, 75)),
+        Font = pg.font.SysFont('Comic Sans MS', 30)
+        
+        Sign_In_Button = (pg.draw.rect(screen, (0, 0, 0), (SCREEN_WIDTH//2 - 150, SCREEN_HEIGHT - 150, 300, 75),
+                                       border_radius= 50),
                           Font.render('Sign Up', True, (255, 255, 255)))
-        Login_Button = (pg.draw.rect(screen, (0, 0, 0), (SCREEN_WIDTH//2 - 150, SCREEN_HEIGHT - 300, 300, 75)),
+        Login_Button = (pg.draw.rect(screen, (0, 0, 0), (SCREEN_WIDTH//2 - 150, SCREEN_HEIGHT - 300, 300, 75),
+                                     border_radius= 50),
                         Font.render('Login', True, (255, 255, 255)))
         screen.blit(Sign_In_Button[1], (SCREEN_WIDTH//2 - 50, SCREEN_HEIGHT - 135))
         screen.blit(Login_Button[1], (SCREEN_WIDTH//2 - 30, SCREEN_HEIGHT - 285))
-        
+
 
         
 
@@ -41,10 +49,12 @@ def Home_Page():
 
 while Run:
     draw_home_page()
+    screen.bilt()
 
     for event in pg.event.get():
         if event.type == pg.QUIT:
             Run = False
+    CLOCK.tick(60)
     pg.display.update()
 pg.quit()
         
