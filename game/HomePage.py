@@ -1,7 +1,19 @@
 import sqlite3
+import bcrypt
 from cryptography.fernet import Fernet
 import pygame as pg
 import requests
+#Load encryption key from .env file
+
+with open('.env', 'r') as key_file:
+    key = key_file.read()
+fernet = Fernet(key)
+
+def hash_password(password):
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+def check_password(password, stored_hash):
+    return bcrypt.checkpw(password.encode(), stored_hash)
+
 
 # This is the HomePage class for the game. It will display the home page of the game and allow the user to start the game.
 pg.init()
@@ -45,11 +57,47 @@ def start_up():
                 Login_In()
 
 def Login_In(Username, Password):
-    # This function will handle the login process for the user. It will display a login form and allow the user to enter their username and password.
-    pass
-def Sign_Up(Username, Password, Email):
-    # This function will handle the sign up process for the user. It will display a sign up form and allow the user to enter their username, password, and email address.
-    pass
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT password FROM users WHERE username = ?", (Username,))
+    result = cursor.fetchone()
+
+    conn.close()
+
+    if result is None:
+        print("User not found.")
+        return False
+
+    stored_hash = result[0]
+
+    if check_password(Password, stored_hash):
+        print("Login successful!")
+        return True
+    else:
+        print("Incorrect password.")
+        return False
+
+def Sign_Up(username, password, email):
+    password_hash = hash_password(password)
+    encrypted_email = fernet.encrypt(email.encode())
+
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute(
+            "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
+            (username, encrypted_email, password_hash)
+        )
+        conn.commit()
+        print("User created successfully!")
+
+    except sqlite3.IntegrityError:
+        print("Username or email already taken.")
+
+    conn.close()
+
 def Home_Page(Username):
     # This function will display the home page of the game. It will allow the user to start the game, view the leaderboard, and access the settings.
     pass
