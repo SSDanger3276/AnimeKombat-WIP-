@@ -51,10 +51,9 @@ def Sign_Up(Username, Password, Email):
 def Home_Page(Username):
     # This function will display the home page of the game. It will allow the user to start the game, view the leaderboard, and access the settings.
     pass
-
+start_up()
 while Run:
 
-    start_up()
     for event in pg.event.get():
         if event.type == pg.QUIT:
             Run = False
