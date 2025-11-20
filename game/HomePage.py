@@ -1,3 +1,5 @@
+import sqlite3
+from cryptography.fernet import Fernet
 import pygame as pg
 import requests
 
