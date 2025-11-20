@@ -11,13 +11,14 @@ Run = True
 screen = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pg.display.set_caption('AniCombat')
 
-
 CLOCK = pg.time.Clock()
 
 # The Aesthetics :D
 def draw_home_page():
         Font = pg.font.SysFont('Comic Sans MS', 30)
-        
+        pg.draw.rect(screen, (136, 124, 116), (0, 0, SCREEN_WIDTH, SCREEN_HEIGHT))
+        Title = Font.render('Welcome to AniCombat!', True, (0, 0, 0))
+        screen.blit(Title, (SCREEN_WIDTH//2 - Title.get_width()//2, SCREEN_HEIGHT//2 - 200))
         Sign_In_Button = (pg.draw.rect(screen, (0, 0, 0), (SCREEN_WIDTH//2 - 150, SCREEN_HEIGHT - 150, 300, 75),
                                        border_radius= 50),
                           Font.render('Sign Up', True, (255, 255, 255)))
@@ -32,8 +33,6 @@ def draw_home_page():
                 Sign_Up()
             elif Login_Button[0].collidepoint(mouse_pos):
                 Login_In()
-
-        
 
 def Login_In():
     # This function will handle the login process for the user. It will display a login form and allow the user to enter their username and password.
