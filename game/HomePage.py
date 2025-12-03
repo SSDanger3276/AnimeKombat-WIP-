@@ -101,6 +101,7 @@ def Sign_Up(username, password, email):
 def Home_Page(Username):
     # This function will display the home page of the game. It will allow the user to start the game, view the leaderboard, and access the settings.
     pass
+#Get the thing running
 start_up()
 while Run:
 

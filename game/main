@@ -1,7 +1,7 @@
 import pygame as pg
 import sys
 import random
-#from player import player
+from player import player
 from pygame.locals import *
 from pygame.locals import QUIT
 
