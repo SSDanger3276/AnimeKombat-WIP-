@@ -1,7 +1,7 @@
 import pygame as pg
 import sys
 import random
-from player import player
+from game.user1 import player
 from pygame.locals import *
 from pygame.locals import QUIT
 
@@ -73,4 +73,4 @@ def main():
         draw(game_state,platform,players)
 
 if __name__ == "__main__":
-    main()
+   main()
