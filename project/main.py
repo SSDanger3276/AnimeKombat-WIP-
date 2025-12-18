@@ -1,9 +1,10 @@
 import pygame as pg
 import sys
 import random
-from game.user1 import player
+from project.user1 import player
 from pygame.locals import *
 from pygame.locals import QUIT
+from auth.auth_db import log_in, sign_up
 
 FPS = 60
 WIN = 700
